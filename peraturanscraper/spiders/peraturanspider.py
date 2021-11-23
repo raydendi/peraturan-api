@@ -18,8 +18,8 @@ class PeraturanSpider(scrapy.Spider):
                 yield {
                     'peraturanName': peraturan.css('span.font-blue::text').get().replace('\r\n                                    ','').replace('\r\n                                ', ''),
                     'peraturanDescription': peraturan.css('span.lead.bold a::text').get(),
-                    'peraturanDicabut': peraturan.xpath('.//ol [1]').css('li.text-left.font-sm').xpath('normalize-space(./span)').getall(),
-                    'peraturanDiubah' : peraturan.xpath('.//ol [2]').css('li.text-left.font-sm').xpath('normalize-space(./span)').getall(),
+                    'peraturanMencabut': peraturan.xpath('.//ol [1]').css('li.text-left.font-sm').xpath('normalize-space(./span)').getall(),
+                    'peraturanMengubah' : peraturan.xpath('.//ol [2]').css('li.text-left.font-sm').xpath('normalize-space(./span)').getall(),
                     'link': 'https://peraturan.bpk.go.id'+ response.css('li.font-sm a::attr(href)').get(),
             }
             except: 
@@ -30,5 +30,5 @@ class PeraturanSpider(scrapy.Spider):
                     'link': 'https://peraturan.bpk.go.id'+response.css('li.font-sm a::attr(href)').get(),
                 }
         
-        #anchors = response.css('ul.pagination').css('li a')
-        #yield from response.follow_all(anchors, callback=self.parse)
+        anchors = response.css('ul.pagination').css('li a')
+        yield from response.follow_all(anchors, callback=self.parse)
