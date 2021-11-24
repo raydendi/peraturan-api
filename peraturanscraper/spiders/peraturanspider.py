@@ -11,8 +11,6 @@ class PeraturanSpider(scrapy.Spider):
 
     def parse(self, response):
         ## catch css in the way have different method when list[1]
-        peraturanDicabutPeraturan = response.xpath('.//ol [1]').css('li.text-left.font-sm a::text').getall(),
-        peraturanDicabutTentang = response.xpath('.//ol [1]').css('li.text-left.font-sm span::text').getall(),
         for peraturan in response.css('div.portlet-body'):
             try:
                 yield {
