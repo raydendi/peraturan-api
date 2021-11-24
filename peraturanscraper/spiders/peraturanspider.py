@@ -16,11 +16,11 @@ class PeraturanSpider(scrapy.Spider):
         for peraturan in response.css('div.portlet-body'):
             try:
                 yield {
-                    'peraturanName': peraturan.css('span.font-blue::text').get().replace('\r\n                                    ','').replace('\r\n                                ', ''),
+                    'peraturanNumber': peraturan.css('span.font-blue::text').get().replace('\r\n                                    ','').replace('\r\n                                ', ''),
                     'peraturanDescription': peraturan.css('span.lead.bold a::text').get(),
                     'peraturanMencabut': peraturan.xpath('.//ol [1]').css('li.text-left.font-sm').xpath('normalize-space(./span)').getall(),
                     'peraturanMengubah' : peraturan.xpath('.//ol [2]').css('li.text-left.font-sm').xpath('normalize-space(./span)').getall(),
-                    'link': 'https://peraturan.bpk.go.id'+ response.css('li.font-sm a::attr(href)').get(),
+                    'peraturanLink': 'https://peraturan.bpk.go.id'+ response.css('li.font-sm a::attr(href)').get(),
             }
             except: 
                 yield{
